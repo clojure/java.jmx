@@ -79,7 +79,7 @@ or your leiningen project.clj:
 
 0. Clone the repo
 1. Make sure you have maven installed
-2. Run the maven build: `mvn package` will produce a JAR file in the
+2. Run the maven build: `mvn install` will produce a JAR file in the
 target directory, and run all tests with the most recently-released build
 of Clojure (currently 1.3.0 alpha n).
 
