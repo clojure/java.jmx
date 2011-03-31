@@ -68,12 +68,12 @@ java.jmx is available in Maven central.  Add it to your Maven project's `pom.xml
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>java.jmx</artifactId>
-      <version>0.1.0</version>
+      <version>0.1</version>
     </dependency>
 
 or your leiningen project.clj:
 
-    [org.clojure/java.jmx "0.1.0"]
+    [org.clojure/java.jmx "0.1"]
 
 ### Building
 
