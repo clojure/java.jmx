@@ -62,6 +62,14 @@
              (are [type attr] (instance? type attr)
                   Number (jmx/raw-read mem :ObjectPendingFinalizationCount)))))
 
+(deftest raw-reading-multiple-attributes
+  (let [mem "java.lang:type=Memory"]
+    (testing "simple scalar attributes"
+             (are [a b] (= a b)
+                  false ((jmx/raw-read-attributes mem [:Verbose]) :Verbose))
+             (are [type attr] (instance? type attr)
+                  Number ((jmx/raw-read-attributes mem [:ObjectPendingFinalizationCount]) :ObjectPendingFinalizationCount)))))
+
 (deftest reading-attributes
   (testing "simple scalar attributes"
            (are [type attr] (instance? type attr)
@@ -71,6 +79,17 @@
                 [:used :max :init :committed] (jmx/read "java.lang:type=Memory" :HeapMemoryUsage)))
   (testing "tabular attributes"
            (is (map? (jmx/read "java.lang:type=Runtime" :SystemProperties)))))
+
+(deftest reading-multiple-attributes
+  (testing "simple scalar attributes"
+           (are [type attr] (instance? type attr)
+                Number ((jmx/read-attributes "java.lang:type=Memory" [:ObjectPendingFinalizationCount]) :ObjectPendingFinalizationCount)))
+  (testing "composite attributes"
+           (are [ks attr] (=set ks (keys attr))
+                [:used :max :init :committed] 
+                ((jmx/read-attributes "java.lang:type=Memory" [:HeapMemoryUsage :NonHeapMemoryUsage]) :HeapMemoryUsage)))
+  (testing "tabular attributes"
+           (is (map? ((jmx/read-attributes "java.lang:type=Runtime" [:SystemProperties]) :SystemProperties)))))
 
 (deftest writing-attributes
   (let [mem "java.lang:type=Memory"]

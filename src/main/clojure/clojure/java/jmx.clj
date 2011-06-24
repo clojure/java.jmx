@@ -193,6 +193,21 @@
   "Read an mbean property."
   (comp objects->data raw-read))
 
+(defn raw-read-attributes
+  "Read a list of mbean properties. Returns low-level Java object
+   models for composites, tabulars, etc. Most callers should use
+   read-attributes."
+  [n attrs]
+  (into {}  
+        (map (fn [attr] [(keyword (.getName attr)) (.getValue attr)])
+             (.getAttributes *connection* 
+                             (as-object-name n)
+                             (into-array (map name attrs))))))
+
+(def read-attributes
+  "Read a list of mbean properties."
+  (comp objects->data raw-read-attributes))
+
 (defn- read-supported
   "Calls read to read an mbean property, *returning* unsupported
    operation exceptions instead of throwing them. Used to keep mbean
