@@ -288,7 +288,8 @@
                             nil                                                 ; operations
                             nil))
   (getAttribute [_ attr]
-                (@state-ref (keyword attr)))
+                (let [attr-value (@state-ref (keyword attr))]
+                  (if (fn? attr-value) (attr-value) attr-value)))
   (getAttributes [_ attrs]
                  (let [result (AttributeList.)]
                    (doseq [attr attrs]
