@@ -73,8 +73,9 @@
             ObjectName RuntimeMBeanException MBeanAttributeInfo]
            [javax.management.remote JMXConnectorFactory JMXServiceURL]))
 
-(def ^:dynamic *connection*
-  "The connection to be used for JMX ops. Defaults to the local process."
+(def ^{:dynamic true
+       :doc "The connection to be used for JMX ops. Defaults to the local process."}
+  *connection*
   (ManagementFactory/getPlatformMBeanServer))
 
 (declare jmx->clj)
@@ -189,8 +190,8 @@
   [n attr]
   (.getAttribute *connection* (as-object-name n) (name attr)))
 
-(def read
-  "Read an mbean property."
+(def ^{:doc "Read an mbean property."}
+  read
   (comp objects->data raw-read))
 
 (defn- read-supported
