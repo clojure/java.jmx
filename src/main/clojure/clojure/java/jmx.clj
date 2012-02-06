@@ -25,10 +25,16 @@
     -> (:Verbose :ObjectPendingFinalizationCount 
         :HeapMemoryUsage :NonHeapMemoryUsage)
 
-  What is the value of an attribute? 
+  What is the value of an attribute?
 
     (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
     -> 0
+    (jmx/read \"java.lang:type=Memory\" [:HeapMemoryUsage :NonHeapMemoryUsage])
+    ->
+    {:NonHeapMemoryUsage
+      {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
+     :HeapMemoryUsage
+      {:used 18619064, :max 85393408, :init 0, :committed 83230720}}
 
   Can't I just have *all* the attributes in a Clojure map?
 
@@ -184,29 +190,21 @@
   (.getMBeanInfo *connection* (as-object-name n)))
 
 (defn raw-read
-  "Read an mbean property. Returns low-level Java object model for
-   composites, tabulars, etc. Most callers should use read."
-  [n attr]
-  (.getAttribute *connection* (as-object-name n) (name attr)))
-
-(def read
-  "Read an mbean property."
-  (comp objects->data raw-read))
-
-(defn raw-read-attributes
   "Read a list of mbean properties. Returns low-level Java object
    models for composites, tabulars, etc. Most callers should use
-   read-attributes."
+   read."
   [n attrs]
-  (into {}  
-        (map (fn [attr] [(keyword (.getName attr)) (.getValue attr)])
-             (.getAttributes *connection* 
-                             (as-object-name n)
-                             (into-array (map name attrs))))))
+  (if (sequential? attrs)
+    (into {}
+          (map (fn [attr] [(keyword (.getName attr)) (.getValue attr)])
+               (.getAttributes *connection*
+                               (as-object-name n)
+                               (into-array (map name attrs)))))
+    (.getAttribute *connection* (as-object-name n) (name attrs))))
 
-(def read-attributes
-  "Read a list of mbean properties."
-  (comp objects->data raw-read-attributes))
+(def ^{:doc "Read one or more mbean properties."}
+  read
+  (comp objects->data raw-read))
 
 (defn- read-supported
   "Calls read to read an mbean property, *returning* unsupported
