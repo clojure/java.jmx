@@ -112,7 +112,7 @@
     (first k)
     k))
 
-(def ^:private simplify-tabular-data-key
+(def ^{:private true} simplify-tabular-data-key
   (comp maybe-keywordize maybe-atomize))
 
 (defprotocol Destract
@@ -141,7 +141,7 @@
   Object
   (objects->data [obj] obj))
 
-(def ^:private guess-attribute-map
+(def ^{:private true} guess-attribute-map
      {"java.lang.Integer" "int"
       "java.lang.Boolean" "boolean"
       "java.lang.Long" "long"
