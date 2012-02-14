@@ -168,9 +168,13 @@
          AttributeList (class atts)
          [5 4] (seq atts))))
 
+(def primitive-int? (< (.compareTo (clojure-version) "1.3.0") 0))
+
 (deftest test-guess-attribute-typename
   (are [x y] (= x (@#'jmx/guess-attribute-typename y))
-       "long" 10
        "boolean" false
        "java.lang.String" "foo"
-       "long" (Long/valueOf (long 10))))
+       "long" (Long/valueOf (long 10)))
+  (if primitive-int?
+    (is (= "int" (@#'jmx/guess-attribute-typename 10)))
+    (is (= "long" (@#'jmx/guess-attribute-typename 10)))))
