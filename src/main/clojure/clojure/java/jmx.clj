@@ -266,7 +266,7 @@
   [n op & args]
   (if ( seq args)
     (.invoke *connection* (as-object-name n) (name op)
-             (into-array args)
+             (into-array Object args)
              (into-array String  (op-param-types n op)))
     (.invoke *connection* (as-object-name n) (name op)
              nil nil)))
