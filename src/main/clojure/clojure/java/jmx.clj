@@ -261,15 +261,27 @@
   [n]
   (doall (map #(-> % .getName keyword) (operations n))))
 
-(defn invoke
-  "Invoke an operation an an MBean."
-  [n op & args]
+(defn invoke-signature
+  "Invoke an operation an an MBean. You must also supply
+  the signature of the operation. This is useful in cases
+  where the operation is overloaded. Otherwise you should
+  use the 'invoke' operation which will determine the
+  signature for you.
+
+  The signature parameter is a sequence of strings that
+  describes the method parameter types in order."
+  [n op signature & args]
   (if ( seq args)
     (.invoke *connection* (as-object-name n) (name op)
              (into-array Object args)
-             (into-array String  (op-param-types n op)))
+             (into-array String signature))
     (.invoke *connection* (as-object-name n) (name op)
              nil nil)))
+
+(defn invoke
+  "Invoke an operation an an MBean."
+  [n op & args]
+  (apply invoke-signature n op (op-param-types n op) args))
 
 (defn mbean
   "Like clojure.core/bean, but for JMX beans. Returns a read-only map of

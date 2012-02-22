@@ -84,7 +84,10 @@
            (jmx/invoke "java.lang:type=Memory" :gc))
   (testing "with arguments"
            (.addLogger (LogManager/getLogManager) (Logger/getLogger "clojure.java.test_jmx"))
-           (jmx/invoke "java.util.logging:type=Logging" :setLoggerLevel "clojure.java.test_jmx" "WARNING")))
+           (jmx/invoke "java.util.logging:type=Logging" :setLoggerLevel "clojure.java.test_jmx" "WARNING"))
+  (testing "with signature"
+           (jmx/invoke-signature "java.lang:type=Threading" :getThreadInfo ["long"] 1)
+           (jmx/invoke-signature "java.lang:type=Threading" :getThreadInfo ["long" "int"] 1 (new java.lang.Integer 1))))
 
 (deftest test-objects->data
   (testing "it works recursively on maps"
