@@ -16,19 +16,25 @@
   What beans do I have?
 
     (jmx/mbean-names \"*:*\")
-    -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen, 
+    -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
                   java.lang:type=Memory, ...]
 
   What attributes does a bean have?
 
     (jmx/attribute-names \"java.lang:type=Memory\")
-    -> (:Verbose :ObjectPendingFinalizationCount 
+    -> (:Verbose :ObjectPendingFinalizationCount
         :HeapMemoryUsage :NonHeapMemoryUsage)
 
-  What is the value of an attribute? 
+  What is the value of an attribute?
 
     (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
     -> 0
+    (jmx/read \"java.lang:type=Memory\" [:HeapMemoryUsage :NonHeapMemoryUsage])
+    ->
+    {:NonHeapMemoryUsage
+      {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
+     :HeapMemoryUsage
+      {:used 18619064, :max 85393408, :init 0, :committed 83230720}}
 
   Can't I just have *all* the attributes in a Clojure map?
 
@@ -43,16 +49,16 @@
   Can I find and invoke an operation?
 
     (jmx/operation-names \"java.lang:type=Memory\")
-    -> (:gc)  
+    -> (:gc)
     (jmx/invoke \"java.lang:type=Memory\" :gc)
     -> nil
-  
+
   What about some other process? Just run *any* of the above code
   inside a with-connection:
 
-    (jmx/with-connection {:host \"localhost\", :port 3000} 
+    (jmx/with-connection {:host \"localhost\", :port 3000}
       (jmx/mbean \"java.lang:type=Memory\"))
-    -> {:ObjectPendingFinalizationCount 0, 
+    -> {:ObjectPendingFinalizationCount 0,
         :HeapMemoryUsage ... etc.}
 
   Can I serve my own beans?  Sure, just drop a Clojure ref
@@ -125,7 +131,7 @@
    (into {}
          (map (fn [attr] [(keyword attr) (objects->data (.get cd attr))])
               (.. cd getCompositeType keySet))))
-  
+
   javax.management.openmbean.TabularData
   (objects->data
    [td]
@@ -137,7 +143,7 @@
   (objects->data
    [m]
    (into {} (zipmap (keys m) (map objects->data (vals m)))))
-  
+
   Object
   (objects->data [obj] obj))
 
@@ -185,12 +191,19 @@
   (.getMBeanInfo *connection* (as-object-name n)))
 
 (defn raw-read
-  "Read an mbean property. Returns low-level Java object model for
-   composites, tabulars, etc. Most callers should use read."
-  [n attr]
-  (.getAttribute *connection* (as-object-name n) (name attr)))
+  "Read a list of mbean properties. Returns low-level Java object
+   models for composites, tabulars, etc. Most callers should use
+   read."
+  [n attrs]
+  (if (sequential? attrs)
+    (into {}
+          (map (fn [attr] [(keyword (.getName attr)) (.getValue attr)])
+               (.getAttributes *connection*
+                               (as-object-name n)
+                               (into-array (map name attrs)))))
+    (.getAttribute *connection* (as-object-name n) (name attrs))))
 
-(def ^{:doc "Read an mbean property."}
+(def ^{:doc "Read one or more mbean properties."}
   read
   (comp objects->data raw-read))
 
@@ -234,7 +247,7 @@
   [n op]
   (first  (filter #(= (-> % .getName keyword) op) (operations n))))
 
-(defn- op-param-types 
+(defn- op-param-types
   "The parameter types (as class name strings) for operation op on n.
    Used for invoke."
   [n op]
@@ -250,7 +263,7 @@
    [n]
   (.queryNames *connection* (as-object-name n) nil))
 
-(defn attribute-names 
+(defn attribute-names
   "All attribute names available on an MBean."
   [n]
   (doall (map #(-> % .getName keyword)
