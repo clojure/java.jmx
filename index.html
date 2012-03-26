@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>clojure.java.jmx - JMX Interface 0.2 API documentation</title>
+    <title>clojure.java.jmx - JMX Interface 0.3.0 API documentation</title>
     <link href="static/favicon.png" rel="icon" />
     <link href="static/favicon.png" rel="shortcut icon" />
     <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
@@ -27,7 +27,7 @@ namespace.
       <div id="leftcolumn"><div style="text-align: center;"></div>
 <div class="menu">
   <div class="WikiCustomNav WikiElement wiki">
-    <span class="toc-header"><span id="project-name">JMX Interface</span> <span id="version">0.2</span> API</span><br />
+    <span class="toc-header"><span id="project-name">JMX Interface</span> <span id="version">0.3.0</span> API</span><br />
     <ul>
       <li><a class="wiki_link" href="index.html">Overview</a></li>
       <li><a class="wiki_link" href="api-index.html">API Index</a></li>
@@ -45,48 +45,81 @@ namespace.
                 <div id="right-sidebar"><div id="toc">
   <h1 class="nopad">Table of Contents</h1>
   <div style="margin-left: 1em;" class="toc-section">
-    <a href="#toc0">Overview</a>
+    <a href="#toc0" style="margin-top: 3px;">Overview</a>
+    
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#proto-section" style="margin-top: 3px;">Protocols</a>
     <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/*connection*">*connection*</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/attribute-info">attribute-info</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/attribute-names">attribute-names</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/create-bean">create-bean</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/invoke">invoke</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/jmx-url">jmx-url</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/mbean">mbean</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/mbean-names">mbean-names</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/objects-&gt;data">objects-&gt;data</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/operation-names">operation-names</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/operations">operations</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/raw-read">raw-read</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/read">read</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/readable?">readable?</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/register-mbean">register-mbean</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/with-connection">with-connection</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.java.jmx/write!">write!</a>
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/Destract">Destract</a>
+      <div style="margin-left: 1em;" class="toc-subentry">
+        <a class="toc-subentry-anchor" href="#clojure.java.jmx/objects-&gt;data">objects-&gt;data</a>
+      </div>
     </div>
-    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#type-section" style="margin-top: 3px;">Types</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/Bean">Bean</a>
+      
+    </div>
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#var-section" style="margin-top: 3px;">Vars and Functions</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/*connection*">*connection*</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/attribute-info">attribute-info</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/attribute-names">attribute-names</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/create-bean">create-bean</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/invoke">invoke</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/invoke-signature">invoke-signature</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/jmx-url">jmx-url</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/mbean">mbean</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/mbean-names">mbean-names</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/operation-names">operation-names</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/operations">operations</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/raw-read">raw-read</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/read">read</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/readable?">readable?</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/register-mbean">register-mbean</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/with-connection">with-connection</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.java.jmx/write!">write!</a>
+      
+    </div>
   </div>
 </div>
 </div>
-                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">clojure.java.jmx</span>
-  - <span id="header-project">JMX Interface</span> <span id="header-version">0.2</span> (<span id="header-status">in development</span>)
+                <div id="content-tag"><h1 id="overview">API for <span id="clojure.java.jmx">clojure.java.jmx</span>
+  - <span id="header-project">JMX Interface</span> <span id="header-version">0.3.0</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
   </h1>
 <span id="author-line">by <span id="author-name">Stuart Halloway</span><br /></span>
 <br />Full namespace name: <span id="long-name">clojure.java.jmx</span>
@@ -100,19 +133,25 @@ Usage
 What beans do I have?
 
   (jmx/mbean-names "*:*")
-  -&gt; #&lt;HashSet [java.lang:type=MemoryPool,name=CMS Old Gen, 
+  -&gt; #&lt;HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
                 java.lang:type=Memory, ...]
 
 What attributes does a bean have?
 
   (jmx/attribute-names "java.lang:type=Memory")
-  -&gt; (:Verbose :ObjectPendingFinalizationCount 
+  -&gt; (:Verbose :ObjectPendingFinalizationCount
       :HeapMemoryUsage :NonHeapMemoryUsage)
 
-What is the value of an attribute? 
+What is the value of an attribute?
 
   (jmx/read "java.lang:type=Memory" :ObjectPendingFinalizationCount)
   -&gt; 0
+  (jmx/read "java.lang:type=Memory" [:HeapMemoryUsage :NonHeapMemoryUsage])
+  -&gt;
+  {:NonHeapMemoryUsage
+    {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
+   :HeapMemoryUsage
+    {:used 18619064, :max 85393408, :init 0, :committed 83230720}}
 
 Can't I just have *all* the attributes in a Clojure map?
 
@@ -127,16 +166,16 @@ Can't I just have *all* the attributes in a Clojure map?
 Can I find and invoke an operation?
 
   (jmx/operation-names "java.lang:type=Memory")
-  -&gt; (:gc)  
+  -&gt; (:gc)
   (jmx/invoke "java.lang:type=Memory" :gc)
   -&gt; nil
 
 What about some other process? Just run *any* of the above code
 inside a with-connection:
 
-  (jmx/with-connection {:host "localhost", :port 3000} 
+  (jmx/with-connection {:host "localhost", :port 3000}
     (jmx/mbean "java.lang:type=Memory"))
-  -&gt; {:ObjectPendingFinalizationCount 0, 
+  -&gt; {:ObjectPendingFinalizationCount 0,
       :HeapMemoryUsage ... etc.}
 
 Can I serve my own beans?  Sure, just drop a Clojure ref
@@ -151,199 +190,251 @@ in the ref:
 
 
 <br />
-<h2>Public Variables and Functions</h2>
-<div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/*connection*">*connection*</h2>
-  <span id="var-type">var</span><br />
-  <pre id="var-usage"></pre>
-  <pre id="var-docstr">The connection to be used for JMX ops. Defaults to the local process.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L76" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/attribute-info">attribute-info</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (attribute-info object-name attr-name)
+
+<div id="proto-section">
+  <p></p>
+  <h2>Protocols</h2>
+  <div id="proto-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/Destract">Destract</h2>
+    <span id="proto-type">Protocol</span><br />
+    <pre id="proto-docstr"></pre>
+    Known implementations: <span id="proto-impls">clojure.lang.Associative, javax.management.openmbean.CompositeData, javax.management.openmbean.TabularData, Object</span>
+    <div id="proto-var-entry">
+      <br />
+      <h3 id="clojure.java.jmx/objects-&gt;data">objects-&gt;data</h3>
+      <span id="var-type">function</span><br />
+      <pre id="var-usage">Usage: (objects-&gt;data _)
 </pre>
-  <pre id="var-docstr">Get the MBeanAttributeInfo for an attribute.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L216" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/attribute-names">attribute-names</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (attribute-names n)
+      <pre id="var-docstr">Convert JMX object model into data. Handles CompositeData, TabularData, maps, and atoms.</pre>
+      
+      
+      
+    </div>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L124" id="proto-source">Source</a>
+  </div>
+</div>
+<div id="type-section">
+  <p></p>
+  <h2>Types</h2>
+  <div id="type-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/Bean">Bean</h2>
+    <span id="type-type">type</span><br />
+    <pre id="type-docstr"></pre>
+    Fields: <span id="type-fields">[state-ref]</span><br />
+    Protocols: <span id="type-protocols"></span><br />
+    Interfaces: <span id="type-interfaces">javax.management.DynamicMBean</span><br />
+  </div>
+</div>
+<div id="var-section">
+  <p></p>
+  <h2>Public Variables and Functions</h2>
+  <div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/*connection*">*connection*</h2>
+    <span id="var-type">var</span><br />
+    <pre id="var-usage"></pre>
+    <pre id="var-docstr">The connection to be used for JMX ops. Defaults to the local process.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L82" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/attribute-info">attribute-info</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (attribute-info object-name attr-name)
 </pre>
-  <pre id="var-docstr">All attribute names available on an MBean.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L253" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/create-bean">create-bean</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (create-bean state-ref)
+    <pre id="var-docstr">Get the MBeanAttributeInfo for an attribute.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L229" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/attribute-names">attribute-names</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (attribute-names n)
 </pre>
-  <pre id="var-docstr">Expose a reference as a JMX bean. state-ref should be a Clojure
+    <pre id="var-docstr">All attribute names available on an MBean.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L266" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/create-bean">create-bean</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (create-bean state-ref)
+</pre>
+    <pre id="var-docstr">Expose a reference as a JMX bean. state-ref should be a Clojure
 reference (ref, atom, agent) containing a map.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L299" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/invoke">invoke</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (invoke n op &amp; args)
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L324" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/invoke">invoke</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (invoke n op &amp; args)
 </pre>
-  <pre id="var-docstr">Invoke an operation an an MBean.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L264" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/jmx-url">jmx-url</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (jmx-url)
+    <pre id="var-docstr">Invoke an operation an an MBean.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L294" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/invoke-signature">invoke-signature</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (invoke-signature n op signature &amp; args)
+</pre>
+    <pre id="var-docstr">Invoke an operation an an MBean. You must also supply
+the signature of the operation. This is useful in cases
+where the operation is overloaded. Otherwise you should
+use the 'invoke' operation which will determine the
+signature for you.
+
+The signature parameter is a sequence of strings that
+describes the method parameter types in order.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L277" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/jmx-url">jmx-url</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (jmx-url)
        (jmx-url overrides)
 </pre>
-  <pre id="var-docstr">Build a JMX URL from options.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L83" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/mbean">mbean</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (mbean n)
+    <pre id="var-docstr">Build a JMX URL from options.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L89" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/mbean">mbean</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (mbean n)
 </pre>
-  <pre id="var-docstr">Like clojure.core/bean, but for JMX beans. Returns a read-only map of
+    <pre id="var-docstr">Like clojure.core/bean, but for JMX beans. Returns a read-only map of
 a JMX bean's attributes. If an attribute it not supported, value is
 set to the exception thrown.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L274" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/mbean-names">mbean-names</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (mbean-names n)
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L299" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/mbean-names">mbean-names</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (mbean-names n)
 </pre>
-  <pre id="var-docstr">Finds all MBeans matching a name on the current *connection*.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L248" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/objects-&gt;data">objects-&gt;data</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (objects-&gt;data _)
+    <pre id="var-docstr">Finds all MBeans matching a name on the current *connection*.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L261" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/operation-names">operation-names</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (operation-names n)
 </pre>
-  <pre id="var-docstr">Convert JMX object model into data. Handles CompositeData, TabularData, maps, and atoms.</pre>
-  
-  
-  
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/operation-names">operation-names</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (operation-names n)
+    <pre id="var-docstr">All operation names available on an MBean.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L272" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/operations">operations</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (operations n)
 </pre>
-  <pre id="var-docstr">All operation names available on an MBean.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L259" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/operations">operations</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (operations n)
+    <pre id="var-docstr">All oeprations available on an MBean.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L240" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/raw-read">raw-read</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (raw-read n attrs)
 </pre>
-  <pre id="var-docstr">All oeprations available on an MBean.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L227" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/raw-read">raw-read</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (raw-read n attr)
+    <pre id="var-docstr">Read a list of mbean properties. Returns low-level Java object
+models for composites, tabulars, etc. Most callers should use
+read.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L193" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/read">read</h2>
+    <span id="var-type">var</span><br />
+    <pre id="var-usage"></pre>
+    <pre id="var-docstr">Read one or more mbean properties.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L206" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/readable?">readable?</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (readable? n attr)
 </pre>
-  <pre id="var-docstr">Read an mbean property. Returns low-level Java object model for
-composites, tabulars, etc. Most callers should use read.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L187" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/read">read</h2>
-  <span id="var-type">var</span><br />
-  <pre id="var-usage"></pre>
-  <pre id="var-docstr">Read an mbean property.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L193" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/readable?">readable?</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (readable? n attr)
+    <pre id="var-docstr">Is attribute readable?</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L235" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/register-mbean">register-mbean</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (register-mbean mbean mbean-name)
 </pre>
-  <pre id="var-docstr">Is attribute readable?</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L222" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/register-mbean">register-mbean</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (register-mbean mbean mbean-name)
+    <pre id="var-docstr">Register an mbean with the current *connection*.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L256" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/with-connection">with-connection</h2>
+    <span id="var-type">macro</span><br />
+    <pre id="var-usage">Usage: (with-connection opts &amp; body)
 </pre>
-  <pre id="var-docstr">Register an mbean with the current *connection*.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L243" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/with-connection">with-connection</h2>
-  <span id="var-type">macro</span><br />
-  <pre id="var-usage">Usage: (with-connection opts &amp; body)
-</pre>
-  <pre id="var-docstr">Execute body with JMX connection specified by opts. opts can also
+    <pre id="var-docstr">Execute body with JMX connection specified by opts. opts can also
 include an optional :environment key which is passed as the
 environment arg to JMXConnectorFactory/connect.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L171" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.java.jmx/write!">write!</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (write! n attr value)
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L177" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.java.jmx/write!">write!</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (write! n attr value)
 </pre>
-  <pre id="var-docstr">Write an attribute value.</pre>
-  
-  
-  <a href="https://github.com/clojure/java.jmx/blob/e5cc32e281de76849648897600655b9a9138b4de/src/main/clojure/clojure/java/jmx.clj#L208" id="var-source">Source</a>
+    <pre id="var-docstr">Write an attribute value.</pre>
+    
+    
+    <a href="https://github.com/clojure/java.jmx/blob/0eda6c9117e7831d62b3f42e2ddd2c2761bddde5/src/main/clojure/clojure/java/jmx.clj#L221" id="var-source">Source</a>
+  </div>
 </div>
 
 
@@ -353,7 +444,7 @@ environment arg to JMXConnectorFactory/connect.</pre>
           </div>
 	</div>
 	<div id="foot">
-	  <div style="text-align: center;" id="copyright">Copyright 2007-2011 by Rich Hickey and the various contributors</div>
+	  <div style="text-align: center;" id="copyright">Copyright 2007-2012 by Rich Hickey and the various contributors</div>
 	</div>
       </div>
       <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
