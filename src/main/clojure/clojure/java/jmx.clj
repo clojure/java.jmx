@@ -80,13 +80,14 @@
            [javax.management.remote JMXConnectorFactory JMXServiceURL]))
 
 (def ^{:dynamic true
-       :doc "The connection to be used for JMX ops. Defaults to the local process."}
+       :doc "The connection to be used for JMX ops. Defaults to the local process."
+       :skip-wiki true}
   *connection*
   (ManagementFactory/getPlatformMBeanServer))
 
 (declare jmx->clj)
 
-(defn jmx-url
+(defn ^{:skip-wiki true} jmx-url
   "Build a JMX URL from options."
   ([] (jmx-url {}))
   ([overrides]
@@ -121,7 +122,7 @@
 (def ^{:private true} simplify-tabular-data-key
   (comp maybe-keywordize maybe-atomize))
 
-(defprotocol Destract
+(defprotocol ^{:skip-wiki true} Destract
   (objects->data [_] "Convert JMX object model into data. Handles CompositeData, TabularData, maps, and atoms."))
 
 (extend-protocol Destract
@@ -187,10 +188,10 @@
        (binding [*connection* (.getMBeanServerConnection connector#)]
          ~@body))))
 
-(defn mbean-info [n]
+(defn ^{:skip-wiki true} mbean-info [n]
   (.getMBeanInfo *connection* (as-object-name n)))
 
-(defn raw-read
+(defn ^{:skip-wiki true} raw-read
   "Read a list of mbean properties. Returns low-level Java object
    models for composites, tabulars, etc. Most callers should use
    read."
@@ -226,7 +227,7 @@
    (as-object-name n)
    (Attribute. (name attr) value)))
 
-(defn attribute-info
+(defn ^{:skip-wiki true} attribute-info
   "Get the MBeanAttributeInfo for an attribute."
   [object-name attr-name]
   (filter #(= (name attr-name) (.getName %))
@@ -237,8 +238,8 @@
   [n attr]
   (.isReadable (mbean-info n)))
 
-(defn operations
-  "All oeprations available on an MBean."
+(defn ^{:skip-wiki true} operations
+  "All operations available on an MBean."
   [n]
   (.getOperations (mbean-info n)))
 
@@ -292,7 +293,7 @@
              nil nil)))
 
 (defn invoke
-  "Invoke an operation an an MBean."
+  "Invoke an operation an an MBean. See also: invoke-signature"
   [n op & args]
   (apply invoke-signature n op (op-param-types n op) args))
 
