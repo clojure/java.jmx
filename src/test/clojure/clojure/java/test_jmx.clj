@@ -166,11 +166,12 @@
 
 (deftest test-getAttribute
   (doseq [reftype [ref atom agent]]
-    (let [state (reftype {:a 1 :b 2})
+    (let [state (reftype {:a 1 :b 2 :c (fn [] (vector 1 2 3))})
           bean (jmx/create-bean state)]
       (testing (str "accessing values from a " (class state))
                (are [result expr] (= result expr)
-                    1 (.getAttribute bean "a"))))))
+                    1 (.getAttribute bean "a")
+                    [1 2 3] (.getAttribute bean "c"))))))
 
 (deftest test-bean-info
   (let [state (ref {:a 1 :b 2})
