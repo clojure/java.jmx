@@ -146,7 +146,10 @@
    (into {} (zipmap (keys m) (map objects->data (vals m)))))
 
   Object
-  (objects->data [obj] obj))
+  (objects->data [obj] obj)
+
+  javax.management.Attribute
+  (objects->data [attr] (.getValue attr)))
 
 (def ^{:private true} guess-attribute-map
      {"java.lang.Integer" "int"
@@ -315,7 +318,7 @@
                             nil                                                 ; operations
                             nil))
   (getAttribute [_ attr]
-                (@state-ref (keyword attr)))
+                (Attribute. attr (@state-ref (keyword attr))))
   (getAttributes [_ attrs]
                  (let [result (AttributeList.)]
                    (doseq [attr attrs]
