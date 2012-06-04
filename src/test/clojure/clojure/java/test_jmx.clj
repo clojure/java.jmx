@@ -12,7 +12,7 @@
 
 (ns clojure.java.test-jmx
   (:import javax.management.openmbean.CompositeDataSupport
-           [javax.management MBeanAttributeInfo AttributeList]
+           [javax.management MBeanAttributeInfo Attribute AttributeList]
            [java.util.logging LogManager Logger])
   (:use clojure.test)
   (:require [clojure.java [jmx :as jmx]]))
@@ -169,8 +169,9 @@
     (let [state (reftype {:a 1 :b 2})
           bean (jmx/create-bean state)]
       (testing (str "accessing values from a " (class state))
-               (are [result expr] (= result expr)
-                    1 (.getAttribute bean "a"))))))
+        (are [result expr] (= result expr)
+             "a" (.getName (.getAttribute bean "a"))
+             1 (.getValue (.getAttribute bean "a")))))))
 
 (deftest test-bean-info
   (let [state (ref {:a 1 :b 2})
@@ -185,7 +186,8 @@
         atts (.getAttributes bean (into-array ["r" "d"]))]
     (are [x y] (= x y)
          AttributeList (class atts)
-         [5 4] (seq atts))))
+         ["r" "d"] (map (memfn getName) (seq atts))
+         [5 4] (map (memfn getValue) (seq atts)))))
 
 (def primitive-int? (< (.compareTo (clojure-version) "1.3.0") 0))
 
