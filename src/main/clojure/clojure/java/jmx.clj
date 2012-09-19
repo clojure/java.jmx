@@ -146,7 +146,9 @@
    (into {} (zipmap (keys m) (map objects->data (vals m)))))
 
   Object
-  (objects->data [obj] obj))
+  (objects->data [obj] obj)
+  nil
+  (objects->data [_] nil))
 
 (def ^{:private true} guess-attribute-map
      {"java.lang.Integer" "int"

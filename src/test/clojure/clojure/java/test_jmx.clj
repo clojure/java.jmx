@@ -106,14 +106,6 @@
            (jmx/invoke-signature "java.lang:type=Threading" :getThreadInfo ["long" "int"] 1 (new java.lang.Integer 1))))
 
 (deftest test-objects->data
-  (testing "it works recursively on maps"
-           (let [some-map {:foo (jmx/raw-read "java.lang:type=Memory" :HeapMemoryUsage)}]
-             (is (map? (:foo (jmx/objects->data some-map))))))
-  (testing "it leaves everything else untouched"
-           (is (= "foo" (jmx/objects->data "foo")))))
-  
-  
-(deftest test-objects->data
   (let [objects (jmx/raw-read "java.lang:type=Memory" :HeapMemoryUsage)
         prox (jmx/objects->data objects)]
     (testing "returns a map with keyword keys"
@@ -122,7 +114,14 @@
         props (jmx/objects->data raw-props)]
     (are [k] (contains? props k)
          :java.class.path
-         :path.separator)))
+         :path.separator))
+  (testing "it works recursively on maps"
+           (let [some-map {:foo (jmx/raw-read "java.lang:type=Memory" :HeapMemoryUsage)}]
+             (is (map? (:foo (jmx/objects->data some-map))))))
+  (testing "it handles null references"
+    (is (nil? (jmx/objects->data nil))))
+  (testing "it leaves everything else untouched"
+    (is (= "foo" (jmx/objects->data "foo")))))
 
 (deftest test-creating-attribute-infos
   (let [infos (@#'jmx/map->attribute-infos [[:a 1] [:b 2]])
