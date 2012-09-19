@@ -1,28 +1,49 @@
-# java.jmx
+clojure.java.jmx
+========================================
 
 Produce and consume JMX beans from Clojure.
 
-## Setup
+Releases and Dependency Information
+========================================
 
-Requires Clojure 1.3 alpha or later.
-    
+Latest stable release: 0.2.0
+
+* [All Released Versions](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.clojure%22%20AND%20a%3A%22java.jmx%22)
+
+* [Development Snapshot Versions](https://oss.sonatype.org/index.html#nexus-search;gav%7Eorg.clojure%7Ejava.jmx%7E%7E%7E)
+
+[Leiningen](https://github.com/technomancy/leiningen) dependency information:
+
+    [org.clojure/java.jmx "0.2.0"]
+
+[Maven](http://maven.apache.org/) dependency information:
+
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>java.jmx</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+
+Usage
+========================================
+
+[Full Documentation](http://clojure.github.com/java.jmx/)
+
     (require '[clojure.java.jmx :as jmx])
-
-## Usage
 
 What beans do I have?
 
     (jmx/mbean-names \"*:*\")
-    -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen, 
+    -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
                   java.lang:type=Memory, ...]
 
 What attributes does a bean have?
 
     (jmx/attribute-names \"java.lang:type=Memory\")
-    -> (:Verbose :ObjectPendingFinalizationCount 
+    -> (:Verbose :ObjectPendingFinalizationCount
         :HeapMemoryUsage :NonHeapMemoryUsage)
 
-What is the value of an attribute? 
+What is the value of an attribute?
 
     (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
     -> 0
@@ -40,16 +61,16 @@ Give me all the attributes:
 Find an invoke an operation:
 
     (jmx/operation-names \"java.lang:type=Memory\")
-    -> (:gc)  
+    -> (:gc)
     (jmx/invoke \"java.lang:type=Memory\" :gc)
     -> nil
-  
+
 Conneting to another process? Just run *any* of the above code
 inside a with-connection:
 
-    (jmx/with-connection {:host \"localhost\", :port 3000} 
+    (jmx/with-connection {:host \"localhost\", :port 3000}
       (jmx/mbean \"java.lang:type=Memory\"))
-    -> {:ObjectPendingFinalizationCount 0, 
+    -> {:ObjectPendingFinalizationCount 0,
         :HeapMemoryUsage ... etc.}
 
 Serve your own beans. Drop a Clojure ref into create-bean
@@ -61,27 +82,25 @@ in the ref:
        (ref {:string-attribute \"a-string\"}))
        \"my.namespace:name=Value\")"}
 
-### "Installation"
+Developer Information
+========================================
 
-java.jmx is available in Maven central.  Add it to your Maven project's `pom.xml`:
+* [GitHub project](https://github.com/clojure/java.jmx)
 
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>java.jmx</artifactId>
-      <version>0.1</version>
-    </dependency>
+* [Bug Tracker](http://dev.clojure.org/jira/browse/JMX)
 
-or your leiningen project.clj:
+* [Continuous Integration](http://build.clojure.org/job/java.jmx/)
 
-    [org.clojure/java.jmx "0.1"]
+* [Compatibility Test Matrix](http://build.clojure.org/job/java.jmx-test-matrix/)
 
-### Building
+Building
+====================
 
 0. Clone the repo
 1. Make sure you have maven installed
 2. Run the maven build: `mvn install` will produce a JAR file in the
 target directory, and run all tests with the most recently-released build
-of Clojure (currently 1.3.0 alpha n).
+of Clojure.
 
 ## License
 
