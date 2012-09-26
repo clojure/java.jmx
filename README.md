@@ -78,7 +78,7 @@ to expose read-only attributes for every key/value pair
 in the ref:
 
     (jmx/register-mbean
-       (create-bean
+       (jmx/create-bean
        (ref {:string-attribute \"a-string\"}))
        \"my.namespace:name=Value\")"}
 
