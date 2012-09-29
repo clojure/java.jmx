@@ -321,7 +321,7 @@
   (getAttributes [_ attrs]
                  (let [result (AttributeList.)]
                    (doseq [attr attrs]
-                     (.add result (.getAttribute _ attr)))
+                     (.add result (Attribute. attr (.getAttribute _ attr))))
                    result)))
 
 (defn create-bean
