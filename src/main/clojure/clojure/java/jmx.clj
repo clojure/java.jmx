@@ -178,15 +178,22 @@
                    attr-map)))
 
 (defmacro with-connection
-  "Execute body with JMX connection specified by opts. opts can also
-   include an optional :environment key which is passed as the
-   environment arg to JMXConnectorFactory/connect."
+  "Execute body with a JMX connection created based on opts. opts can include [default]:
+
+     :host        The host to connect to [localhost]
+     :port        The port to connect to [3000]
+     :jndi-path   The jndi-path to use [jmxuri]
+     :url         The full url (as a String) to use instead of generating a rmi url from
+                  the above options [nil]
+     :environment A map representing the environment used for the connection.
+                  See JMXConnectorFactory/connect for details [{}]"
   [opts & body]
   `(let [opts# ~opts
          env# (get opts# :environment {})
          opts# (dissoc opts# :environment)]
      (with-open [connector# (javax.management.remote.JMXConnectorFactory/connect
-                             (JMXServiceURL. (jmx-url opts#)) env#)]
+                             (JMXServiceURL. (:url opts# (jmx-url opts#)))
+                             env#)]
        (binding [*connection* (.getMBeanServerConnection connector#)]
          ~@body))))
 
