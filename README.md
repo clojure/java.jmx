@@ -95,7 +95,7 @@ in the ref:
 (jmx/register-mbean
   (jmx/create-bean
   (ref {:string-attribute \"a-string\"}))
-  \"my.namespace:name=Value\")"}
+  \"my.namespace:name=Value\")}
 ```
 
 Developer Information
