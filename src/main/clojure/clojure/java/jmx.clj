@@ -239,13 +239,14 @@
 (defn ^{:skip-wiki true} attribute-info
   "Get the MBeanAttributeInfo for an attribute."
   [object-name attr-name]
-  (filter #(= (name attr-name) (.getName %))
-          (.getAttributes (mbean-info object-name))))
+  (first
+    (filter #(= (name attr-name) (.getName %))
+            (.getAttributes (mbean-info object-name)))))
 
 (defn readable?
   "Is attribute readable?"
   [n attr]
-  (.isReadable (mbean-info n)))
+  (.isReadable (attribute-info n attr)))
 
 (defn ^{:skip-wiki true} operations
   "All operations available on an MBean."

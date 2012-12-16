@@ -69,12 +69,15 @@
 
 (deftest reading-attributes
   (testing "simple scalar attributes"
+           (is (jmx/readable? "java.lang:type=Memory" :ObjectPendingFinalizationCount))
            (are [type attr] (instance? type attr)
                 Number (jmx/read "java.lang:type=Memory" :ObjectPendingFinalizationCount)))
   (testing "composite attributes"
+           (is (jmx/readable? "java.lang:type=Memory" :HeapMemoryUsage))
            (are [ks attr] (=set ks (keys attr))
                 [:used :max :init :committed] (jmx/read "java.lang:type=Memory" :HeapMemoryUsage)))
   (testing "tabular attributes"
+           (is (jmx/readable? "java.lang:type=Runtime" :SystemProperties))
            (is (map? (jmx/read "java.lang:type=Runtime" :SystemProperties)))))
 
 (deftest reading-multiple-attributes
