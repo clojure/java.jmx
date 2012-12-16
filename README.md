@@ -29,58 +29,74 @@ Usage
 
 [Full Documentation](http://clojure.github.com/java.jmx/)
 
-    (require '[clojure.java.jmx :as jmx])
+```clojure
+(require '[clojure.java.jmx :as jmx])
+```
 
 What beans do I have?
 
-    (jmx/mbean-names \"*:*\")
-    -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
-                  java.lang:type=Memory, ...]
+```clojure
+(jmx/mbean-names \"*:*\")
+-> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
+              java.lang:type=Memory, ...]
+```
 
 What attributes does a bean have?
 
-    (jmx/attribute-names \"java.lang:type=Memory\")
-    -> (:Verbose :ObjectPendingFinalizationCount
-        :HeapMemoryUsage :NonHeapMemoryUsage)
+```clojure
+(jmx/attribute-names \"java.lang:type=Memory\")
+-> (:Verbose :ObjectPendingFinalizationCount
+    :HeapMemoryUsage :NonHeapMemoryUsage)
+```
 
 What is the value of an attribute?
 
-    (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
-    -> 0
+```clojure
+(jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
+-> 0
+```
 
 Give me all the attributes:
 
-    (jmx/mbean \"java.lang:type=Memory\")
-    -> {:NonHeapMemoryUsage
-         {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
-        :HeapMemoryUsage
-         {:used 18619064, :max 85393408, :init 0, :committed 83230720},
-        :ObjectPendingFinalizationCount 0,
-        :Verbose false}
+```clojure
+(jmx/mbean \"java.lang:type=Memory\")
+-> {:NonHeapMemoryUsage
+     {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
+    :HeapMemoryUsage
+     {:used 18619064, :max 85393408, :init 0, :committed 83230720},
+    :ObjectPendingFinalizationCount 0,
+    :Verbose false}
+```
 
 Find an invoke an operation:
 
-    (jmx/operation-names \"java.lang:type=Memory\")
-    -> (:gc)
-    (jmx/invoke \"java.lang:type=Memory\" :gc)
-    -> nil
+```clojure
+(jmx/operation-names \"java.lang:type=Memory\")
+-> (:gc)
+(jmx/invoke \"java.lang:type=Memory\" :gc)
+-> nil
+```
 
 Conneting to another process? Just run *any* of the above code
 inside a with-connection:
 
-    (jmx/with-connection {:host \"localhost\", :port 3000}
-      (jmx/mbean \"java.lang:type=Memory\"))
-    -> {:ObjectPendingFinalizationCount 0,
-        :HeapMemoryUsage ... etc.}
+```clojure
+(jmx/with-connection {:host \"localhost\", :port 3000}
+  (jmx/mbean \"java.lang:type=Memory\"))
+-> {:ObjectPendingFinalizationCount 0,
+    :HeapMemoryUsage ... etc.}
+```
 
 Serve your own beans. Drop a Clojure ref into create-bean
 to expose read-only attributes for every key/value pair
 in the ref:
 
-    (jmx/register-mbean
-       (jmx/create-bean
-       (ref {:string-attribute \"a-string\"}))
-       \"my.namespace:name=Value\")"}
+```clojure
+(jmx/register-mbean
+  (jmx/create-bean
+  (ref {:string-attribute \"a-string\"}))
+  \"my.namespace:name=Value\")"}
+```
 
 Developer Information
 ========================================
