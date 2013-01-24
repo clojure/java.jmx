@@ -174,7 +174,8 @@
 (defn- map->attribute-infos
   "Construct an MBeanAttributeInfo[] from a Clojure associative."
   [attr-map]
-  (into-array (map (fn [[attr-name value]] (build-attribute-info attr-name value))
+  (into-array MBeanAttributeInfo
+              (map (fn [[attr-name value]] (build-attribute-info attr-name value))
                    attr-map)))
 
 (defmacro with-connection
