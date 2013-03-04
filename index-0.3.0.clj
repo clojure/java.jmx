@@ -8,7 +8,20 @@
    :doc
    "JMX support for Clojure\n\nUsage\n  (require '[clojure.java.jmx :as jmx])\n\nWhat beans do I have?\n\n  (jmx/mbean-names \"*:*\")\n  -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,\n                java.lang:type=Memory, ...]\n\nWhat attributes does a bean have?\n\n  (jmx/attribute-names \"java.lang:type=Memory\")\n  -> (:Verbose :ObjectPendingFinalizationCount\n      :HeapMemoryUsage :NonHeapMemoryUsage)\n\nWhat is the value of an attribute?\n\n  (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)\n  -> 0\n  (jmx/read \"java.lang:type=Memory\" [:HeapMemoryUsage :NonHeapMemoryUsage])\n  ->\n  {:NonHeapMemoryUsage\n    {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n   :HeapMemoryUsage\n    {:used 18619064, :max 85393408, :init 0, :committed 83230720}}\n\nCan't I just have *all* the attributes in a Clojure map?\n\n  (jmx/mbean \"java.lang:type=Memory\")\n  -> {:NonHeapMemoryUsage\n       {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n      :HeapMemoryUsage\n       {:used 18619064, :max 85393408, :init 0, :committed 83230720},\n      :ObjectPendingFinalizationCount 0,\n      :Verbose false}\n\nCan I find and invoke an operation?\n\n  (jmx/operation-names \"java.lang:type=Memory\")\n  -> (:gc)\n  (jmx/invoke \"java.lang:type=Memory\" :gc)\n  -> nil\n\nWhat about some other process? Just run *any* of the above code\ninside a with-connection:\n\n  (jmx/with-connection {:host \"localhost\", :port 3000}\n    (jmx/mbean \"java.lang:type=Memory\"))\n  -> {:ObjectPendingFinalizationCount 0,\n      :HeapMemoryUsage ... etc.}\n\nCan I serve my own beans?  Sure, just drop a Clojure ref\ninto an instance of clojure.java.jmx.Bean, and the bean\nwill expose read-only attributes for every key/value pair\nin the ref:\n\n  (jmx/register-mbean\n     (create-bean\n     (ref {:string-attribute \"a-string\"}))\n     \"my.namespace:name=Value\")"}),
  :vars
- ({:arglists ([n]),
+ ({:arglists ([state-ref]),
+   :name "->Bean",
+   :namespace "clojure.java.jmx",
+   :source-url
+   "https://github.com/clojure/java.jmx/blob/2ed8d4eeb55cf45031146a8cf594729c1014aaa9/src/main/clojure/clojure/java/jmx.clj#L319",
+   :raw-source-url
+   "https://github.com/clojure/java.jmx/raw/2ed8d4eeb55cf45031146a8cf594729c1014aaa9/src/main/clojure/clojure/java/jmx.clj",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/->Bean",
+   :doc "Positional factory function for class clojure.java.jmx.Bean.",
+   :var-type "function",
+   :line 319,
+   :file "src/main/clojure/clojure/java/jmx.clj"}
+  {:arglists ([n]),
    :name "attribute-names",
    :namespace "clojure.java.jmx",
    :source-url
