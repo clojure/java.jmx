@@ -36,7 +36,7 @@ Usage
 What beans do I have?
 
 ```clojure
-(jmx/mbean-names \"*:*\")
+(jmx/mbean-names "*:*")
 -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,
               java.lang:type=Memory, ...]
 ```
@@ -44,7 +44,7 @@ What beans do I have?
 What attributes does a bean have?
 
 ```clojure
-(jmx/attribute-names \"java.lang:type=Memory\")
+(jmx/attribute-names "java.lang:type=Memory")
 -> (:Verbose :ObjectPendingFinalizationCount
     :HeapMemoryUsage :NonHeapMemoryUsage)
 ```
@@ -52,14 +52,14 @@ What attributes does a bean have?
 What is the value of an attribute?
 
 ```clojure
-(jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)
+(jmx/read "java.lang:type=Memory" :ObjectPendingFinalizationCount)
 -> 0
 ```
 
 Give me all the attributes:
 
 ```clojure
-(jmx/mbean \"java.lang:type=Memory\")
+(jmx/mbean "java.lang:type=Memory")
 -> {:NonHeapMemoryUsage
      {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},
     :HeapMemoryUsage
@@ -71,9 +71,9 @@ Give me all the attributes:
 Find an invoke an operation:
 
 ```clojure
-(jmx/operation-names \"java.lang:type=Memory\")
+(jmx/operation-names "java.lang:type=Memory")
 -> (:gc)
-(jmx/invoke \"java.lang:type=Memory\" :gc)
+(jmx/invoke "java.lang:type=Memory" :gc)
 -> nil
 ```
 
@@ -81,8 +81,8 @@ Conneting to another process? Just run *any* of the above code
 inside a with-connection:
 
 ```clojure
-(jmx/with-connection {:host \"localhost\", :port 3000}
-  (jmx/mbean \"java.lang:type=Memory\"))
+(jmx/with-connection {:host "localhost", :port 3000}
+  (jmx/mbean "java.lang:type=Memory"))
 -> {:ObjectPendingFinalizationCount 0,
     :HeapMemoryUsage ... etc.}
 ```
@@ -94,8 +94,8 @@ in the ref:
 ```clojure
 (jmx/register-mbean
   (jmx/create-bean
-  (ref {:string-attribute \"a-string\"}))
-  \"my.namespace:name=Value\")}
+  (ref {:string-attribute "a-string"}))
+  "my.namespace:name=Value")}
 ```
 
 Developer Information
