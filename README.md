@@ -14,7 +14,7 @@ Latest stable release: 0.2.0
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/java.jmx "0.2.0"]
+    [org.clojure/java.jmx "0.3.0"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
