@@ -145,6 +145,8 @@
    [m]
    (into {} (zipmap (keys m) (map objects->data (vals m)))))
 
+  java.lang.Boolean
+  (objects->data [b] (boolean b))
   Object
   (objects->data [obj] obj)
   nil
