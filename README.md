@@ -6,7 +6,7 @@ Produce and consume JMX beans from Clojure.
 Releases and Dependency Information
 ========================================
 
-Latest stable release: 0.3.0
+Latest stable release: 0.3.1
 
 * [All Released Versions](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.clojure%22%20AND%20a%3A%22java.jmx%22)
 
@@ -14,14 +14,14 @@ Latest stable release: 0.3.0
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/java.jmx "0.3.0"]
+    [org.clojure/java.jmx "0.3.1"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>java.jmx</artifactId>
-      <version>0.3.0</version>
+      <version>0.3.1</version>
     </dependency>
 
 Usage
