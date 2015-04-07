@@ -201,7 +201,7 @@ in the ref:
     </div>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L125" id="proto-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L125" id="proto-source">Source</a>
   </div>
 </div>
 <div id="type-section">
@@ -231,7 +231,7 @@ in the ref:
     <pre id="var-docstr">Positional factory function for class clojure.java.jmx.Bean.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L321" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L321" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -242,7 +242,7 @@ in the ref:
     <pre id="var-docstr">All attribute names available on an MBean.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L280" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L280" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -251,10 +251,14 @@ in the ref:
     <pre id="var-usage">Usage: (create-bean state-ref)
 </pre>
     <pre id="var-docstr">Expose a reference as a JMX bean. state-ref should be a Clojure
-reference (ref, atom, agent) containing a map.</pre>
+reference (ref, atom, agent) containing a map.
+
+Using an agent for the state-ref is not recommended when the bean may
+be modified with the setAttribute(s) methods. The setAttribute(s) methods
+will block on the agent to complete all submitted actions (via await).</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L338" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L360" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -265,7 +269,7 @@ reference (ref, atom, agent) containing a map.</pre>
     <pre id="var-docstr">Invoke an operation an an MBean. See also: invoke-signature</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L308" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L308" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -283,7 +287,7 @@ The signature parameter is a sequence of strings that
 describes the method parameter types in order.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L291" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L291" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -296,7 +300,7 @@ a JMX bean's attributes. If an attribute it not supported, value is
 set to the exception thrown.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L313" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L313" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -307,7 +311,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">Finds all MBeans matching a name on the current *connection*.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L275" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L275" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -318,7 +322,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">All operation names available on an MBean.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L286" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L286" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -328,7 +332,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">Read one or more mbean properties.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L219" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L219" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -339,7 +343,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">Is attribute readable?</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L249" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L249" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -350,7 +354,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">Register an mbean with the current *connection*.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L270" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L270" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -369,7 +373,7 @@ set to the exception thrown.</pre>
              See JMXConnectorFactory/connect for details [{}]</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L183" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L183" id="var-source">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -380,7 +384,7 @@ set to the exception thrown.</pre>
     <pre id="var-docstr">Write an attribute value.</pre>
     
     
-    <a href="https://github.com/clojure/java.jmx/blob/6b3be9a082c9e95cfb5aa6d73b2445a7559ec3a6/src/main/clojure/clojure/java/jmx.clj#L234" id="var-source">Source</a>
+    <a href="https://github.com/clojure/java.jmx/blob/546139c5ed86b040a1d5b6904fbd0091de40b931/src/main/clojure/clojure/java/jmx.clj#L234" id="var-source">Source</a>
   </div>
 </div>
 
