@@ -175,6 +175,27 @@
              1 (.getAttribute bean "a")
              2 (.getAttribute bean "b"))))))
 
+(deftest test-setAttribute
+  (doseq [reftype [ref atom agent]]
+    (let [state (reftype {:a 1 :b 2})
+          bean (jmx/create-bean state)]
+      (testing (str "setting values on a " (class state))
+        (.setAttribute bean (Attribute. "a" 3))
+        (are [result expr] (= result expr)
+             3 (.getAttribute bean "a")
+             2 (.getAttribute bean "b"))))))
+
+(deftest test-setAttributes
+  (doseq [reftype [ref atom agent]]
+    (let [state (reftype {:r 5 :d 4})
+          bean (jmx/create-bean state)
+          atts (.setAttributes bean (AttributeList. [(Attribute. "r" 6)
+                                                    (Attribute. "d" 5)]))]
+      (are [x y] (= x y)
+          AttributeList (class atts)
+          ["r" "d"] (map (memfn getName) (seq atts))
+          [6 5] (map (memfn getValue) (seq atts))))))
+
 (deftest test-bean-info
   (let [state (ref {:a 1 :b 2})
         bean (jmx/create-bean state)

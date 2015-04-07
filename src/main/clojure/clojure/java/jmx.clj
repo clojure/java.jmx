@@ -76,7 +76,7 @@
   (:import [clojure.lang Associative]
            java.lang.management.ManagementFactory
            [javax.management Attribute AttributeList DynamicMBean MBeanInfo
-            ObjectName RuntimeMBeanException MBeanAttributeInfo]
+            ObjectName RuntimeMBeanException MBeanAttributeInfo MBeanServerConnection]
            [javax.management.remote JMXConnectorFactory JMXServiceURL]))
 
 (def ^{:dynamic true
@@ -235,9 +235,9 @@
   "Write an attribute value."
   [n attr value]
   (.setAttribute
-   *connection*
-   (as-object-name n)
-   (Attribute. (name attr) value)))
+   ^MBeanServerConnection *connection*
+   ^ObjectName (as-object-name n)
+   (Attribute. ^String (name attr) ^String value)))
 
 (defn ^{:skip-wiki true} attribute-info
   "Get the MBeanAttributeInfo for an attribute."
@@ -333,10 +333,36 @@
                  (let [result (AttributeList.)]
                    (doseq [attr attrs]
                      (.add result (Attribute. attr (.getAttribute _ attr))))
-                   result)))
+                   result))
+  (setAttribute [_ attr]
+          (let [attr-name (.getName attr)
+                attr-value (.getValue attr)
+                state-update {(keyword attr-name) attr-value}]
+                (condp = (type state-ref)
+                  clojure.lang.Agent
+                  (await (send state-ref (fn [state state-update] (merge state state-update)) state-update))
+
+                  clojure.lang.Atom
+                  (swap! state-ref merge state-update)
+
+                  clojure.lang.Ref
+                  (dosync
+                    (ref-set state-ref
+                             (merge @state-ref state-update))))))
+  (setAttributes [_ attrs]
+      (let [attr-names (map (fn [attr]
+                                (.setAttribute _ attr)
+                                (.getName attr))
+                            attrs)]
+      (.getAttributes _ (into-array attr-names)))))
+
 
 (defn create-bean
   "Expose a reference as a JMX bean. state-ref should be a Clojure
-   reference (ref, atom, agent) containing a map."
+   reference (ref, atom, agent) containing a map.
+
+   Using an agent for the state-ref is not recommended when the bean may
+   be modified with the setAttribute(s) methods. The setAttribute(s) methods
+   will block on the agent to complete all submitted actions (via await)."
   [state-ref]
   (Bean. state-ref))
