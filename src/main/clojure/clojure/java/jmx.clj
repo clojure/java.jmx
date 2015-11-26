@@ -272,6 +272,11 @@
   [mbean mbean-name]
   (.registerMBean *connection* mbean (as-object-name mbean-name)))
 
+(defn unregister-mbean
+  "Unregister mbean named mbean-name with the current *connection*."
+  [mbean-name]
+  (.unregisterMBean *connection* (as-object-name mbean-name)))
+
 (defn mbean-names
   "Finds all MBeans matching a name on the current *connection*."
    [n]

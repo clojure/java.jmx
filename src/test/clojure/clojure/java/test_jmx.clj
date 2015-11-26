@@ -12,7 +12,7 @@
 
 (ns clojure.java.test-jmx
   (:import javax.management.openmbean.CompositeDataSupport
-           [javax.management MBeanAttributeInfo Attribute AttributeList]
+           [javax.management MBeanAttributeInfo Attribute AttributeList InstanceNotFoundException]
            [java.util.logging LogManager Logger])
   (:use clojure.test)
   (:require [clojure.java [jmx :as jmx]]))
@@ -222,3 +222,11 @@
   (if primitive-int?
     (is (= "int" (@#'jmx/guess-attribute-typename 10)))
     (is (= "long" (@#'jmx/guess-attribute-typename 10)))))
+
+(deftest test-unregister-mbean
+  (let [mbean (jmx/create-bean (ref {:a-property 123}))
+        mbean-name "clojure.java.test_jmx:name=UnregisterTest"]
+    (jmx/register-mbean mbean mbean-name)
+    (is (= 123 (jmx/read mbean-name :a-property)))
+    (jmx/unregister-mbean mbean-name)
+    (is (thrown? InstanceNotFoundException (jmx/read mbean-name :a-property)))))
