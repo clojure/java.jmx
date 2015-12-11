@@ -229,4 +229,11 @@
     (jmx/register-mbean mbean mbean-name)
     (is (= 123 (jmx/read mbean-name :a-property)))
     (jmx/unregister-mbean mbean-name)
-    (is (thrown? InstanceNotFoundException (jmx/read mbean-name :a-property)))))
+    (if (= [1 3] [(*clojure-version* :major) (*clojure-version* :minor)])
+      ; clojure 1.3 throws RuntimeException directly for some reason so catch that and
+      ; verify that the underlying exception is right
+      (try
+        (jmx/read mbean-name :a-property)
+        (catch RuntimeException e
+          (is (instance? InstanceNotFoundException (.getCause e)))))
+      (is (thrown? InstanceNotFoundException (jmx/read mbean-name :a-property))))))
