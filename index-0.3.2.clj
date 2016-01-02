@@ -1,228 +1,228 @@
 {:namespaces
- ({:source-url
-   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+ ({:doc
+   "JMX support for Clojure\n\nUsage\n  (require '[clojure.java.jmx :as jmx])\n\nWhat beans do I have?\n\n  (jmx/mbean-names \"*:*\")\n  -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,\n                java.lang:type=Memory, ...]\n\nWhat attributes does a bean have?\n\n  (jmx/attribute-names \"java.lang:type=Memory\")\n  -> (:Verbose :ObjectPendingFinalizationCount\n      :HeapMemoryUsage :NonHeapMemoryUsage)\n\nWhat is the value of an attribute?\n\n  (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)\n  -> 0\n  (jmx/read \"java.lang:type=Memory\" [:HeapMemoryUsage :NonHeapMemoryUsage])\n  ->\n  {:NonHeapMemoryUsage\n    {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n   :HeapMemoryUsage\n    {:used 18619064, :max 85393408, :init 0, :committed 83230720}}\n\nCan't I just have *all* the attributes in a Clojure map?\n\n  (jmx/mbean \"java.lang:type=Memory\")\n  -> {:NonHeapMemoryUsage\n       {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n      :HeapMemoryUsage\n       {:used 18619064, :max 85393408, :init 0, :committed 83230720},\n      :ObjectPendingFinalizationCount 0,\n      :Verbose false}\n\nCan I find and invoke an operation?\n\n  (jmx/operation-names \"java.lang:type=Memory\")\n  -> (:gc)\n  (jmx/invoke \"java.lang:type=Memory\" :gc)\n  -> nil\n\nWhat about some other process? Just run *any* of the above code\ninside a with-connection:\n\n  (jmx/with-connection {:host \"localhost\", :port 3000}\n    (jmx/mbean \"java.lang:type=Memory\"))\n  -> {:ObjectPendingFinalizationCount 0,\n      :HeapMemoryUsage ... etc.}\n\nCan I serve my own beans?  Sure, just drop a Clojure ref\ninto an instance of clojure.java.jmx.Bean, and the bean\nwill expose read-only attributes for every key/value pair\nin the ref:\n\n  (jmx/register-mbean\n     (create-bean\n     (ref {:string-attribute \"a-string\"}))\n     \"my.namespace:name=Value\")",
+   :author "Stuart Halloway",
+   :name "clojure.java.jmx",
    :wiki-url
    "http://clojure.github.com/java.jmx/clojure.java.jmx-api.html",
-   :name "clojure.java.jmx",
-   :author "Stuart Halloway",
-   :doc
-   "JMX support for Clojure\n\nUsage\n  (require '[clojure.java.jmx :as jmx])\n\nWhat beans do I have?\n\n  (jmx/mbean-names \"*:*\")\n  -> #<HashSet [java.lang:type=MemoryPool,name=CMS Old Gen,\n                java.lang:type=Memory, ...]\n\nWhat attributes does a bean have?\n\n  (jmx/attribute-names \"java.lang:type=Memory\")\n  -> (:Verbose :ObjectPendingFinalizationCount\n      :HeapMemoryUsage :NonHeapMemoryUsage)\n\nWhat is the value of an attribute?\n\n  (jmx/read \"java.lang:type=Memory\" :ObjectPendingFinalizationCount)\n  -> 0\n  (jmx/read \"java.lang:type=Memory\" [:HeapMemoryUsage :NonHeapMemoryUsage])\n  ->\n  {:NonHeapMemoryUsage\n    {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n   :HeapMemoryUsage\n    {:used 18619064, :max 85393408, :init 0, :committed 83230720}}\n\nCan't I just have *all* the attributes in a Clojure map?\n\n  (jmx/mbean \"java.lang:type=Memory\")\n  -> {:NonHeapMemoryUsage\n       {:used 16674024, :max 138412032, :init 24317952, :committed 24317952},\n      :HeapMemoryUsage\n       {:used 18619064, :max 85393408, :init 0, :committed 83230720},\n      :ObjectPendingFinalizationCount 0,\n      :Verbose false}\n\nCan I find and invoke an operation?\n\n  (jmx/operation-names \"java.lang:type=Memory\")\n  -> (:gc)\n  (jmx/invoke \"java.lang:type=Memory\" :gc)\n  -> nil\n\nWhat about some other process? Just run *any* of the above code\ninside a with-connection:\n\n  (jmx/with-connection {:host \"localhost\", :port 3000}\n    (jmx/mbean \"java.lang:type=Memory\"))\n  -> {:ObjectPendingFinalizationCount 0,\n      :HeapMemoryUsage ... etc.}\n\nCan I serve my own beans?  Sure, just drop a Clojure ref\ninto an instance of clojure.java.jmx.Bean, and the bean\nwill expose read-only attributes for every key/value pair\nin the ref:\n\n  (jmx/register-mbean\n     (create-bean\n     (ref {:string-attribute \"a-string\"}))\n     \"my.namespace:name=Value\")"}),
+   :source-url
+   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj"}),
  :vars
- ({:arglists ([state-ref]),
+ ({:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
    :name "->Bean",
-   :namespace "clojure.java.jmx",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L326",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/->Bean",
-   :doc "Positional factory function for class clojure.java.jmx.Bean.",
-   :var-type "function",
    :line 326,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n]),
-   :name "attribute-names",
+   :var-type "function",
+   :arglists ([state-ref]),
+   :doc "Positional factory function for class clojure.java.jmx.Bean.",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/->Bean"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "attribute-names",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L285",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/attribute-names",
-   :doc "All attribute names available on an MBean.",
-   :var-type "function",
    :line 285,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([state-ref]),
-   :name "create-bean",
+   :var-type "function",
+   :arglists ([n]),
+   :doc "All attribute names available on an MBean.",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/attribute-names"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "create-bean",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L365",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/create-bean",
+   :line 365,
+   :var-type "function",
+   :arglists ([state-ref]),
    :doc
    "Expose a reference as a JMX bean. state-ref should be a Clojure\nreference (ref, atom, agent) containing a map.\n\nUsing an agent for the state-ref is not recommended when the bean may\nbe modified with the setAttribute(s) methods. The setAttribute(s) methods\nwill block on the agent to complete all submitted actions (via await).",
-   :var-type "function",
-   :line 365,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n op & args]),
-   :name "invoke",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/create-bean"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "invoke",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L313",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/invoke",
-   :doc "Invoke an operation an an MBean. See also: invoke-signature",
-   :var-type "function",
    :line 313,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n op signature & args]),
-   :name "invoke-signature",
+   :var-type "function",
+   :arglists ([n op & args]),
+   :doc "Invoke an operation an an MBean. See also: invoke-signature",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/invoke"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "invoke-signature",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L296",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/invoke-signature",
+   :line 296,
+   :var-type "function",
+   :arglists ([n op signature & args]),
    :doc
    "Invoke an operation an an MBean. You must also supply\nthe signature of the operation. This is useful in cases\nwhere the operation is overloaded. Otherwise you should\nuse the 'invoke' operation which will determine the\nsignature for you.\n\nThe signature parameter is a sequence of strings that\ndescribes the method parameter types in order.",
-   :var-type "function",
-   :line 296,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n]),
-   :name "mbean",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/invoke-signature"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "mbean",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L318",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/mbean",
+   :line 318,
+   :var-type "function",
+   :arglists ([n]),
    :doc
    "Like clojure.core/bean, but for JMX beans. Returns a read-only map of\na JMX bean's attributes. If an attribute it not supported, value is\nset to the exception thrown.",
-   :var-type "function",
-   :line 318,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n]),
-   :name "mbean-names",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/mbean"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "mbean-names",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L280",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/mbean-names",
+   :line 280,
+   :var-type "function",
+   :arglists ([n]),
    :doc
    "Finds all MBeans matching a name on the current *connection*.",
-   :var-type "function",
-   :line 280,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n]),
-   :name "operation-names",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/mbean-names"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "operation-names",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L291",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/operation-names",
-   :doc "All operation names available on an MBean.",
-   :var-type "function",
    :line 291,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:file "src/main/clojure/clojure/java/jmx.clj",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :source-url
-   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L219",
+   :var-type "function",
+   :arglists ([n]),
+   :doc "All operation names available on an MBean.",
+   :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/operation-names"}
+  {:name "read",
+   :doc "Read one or more mbean properties.",
+   :var-type "var",
+   :line 219,
+   :namespace "clojure.java.jmx",
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/read",
-   :namespace "clojure.java.jmx",
-   :line 219,
-   :var-type "var",
-   :doc "Read one or more mbean properties.",
-   :name "read"}
-  {:arglists ([n attr]),
+   :source-url
+   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L219",
+   :raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :file "src/main/clojure/clojure/java/jmx.clj"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
    :name "readable?",
-   :namespace "clojure.java.jmx",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L249",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/readable?",
-   :doc "Is attribute readable?",
-   :var-type "function",
    :line 249,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([mbean mbean-name]),
-   :name "register-mbean",
+   :var-type "function",
+   :arglists ([n attr]),
+   :doc "Is attribute readable?",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/readable?"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "register-mbean",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L270",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/register-mbean",
-   :doc "Register an mbean with the current *connection*.",
-   :var-type "function",
    :line 270,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([mbean-name]),
-   :name "unregister-mbean",
+   :var-type "function",
+   :arglists ([mbean mbean-name]),
+   :doc "Register an mbean with the current *connection*.",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/register-mbean"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "unregister-mbean",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L275",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/unregister-mbean",
+   :line 275,
+   :var-type "function",
+   :arglists ([mbean-name]),
    :doc
    "Unregister mbean named mbean-name with the current *connection*.",
-   :var-type "function",
-   :line 275,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([opts & body]),
-   :name "with-connection",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/unregister-mbean"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "with-connection",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L183",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/with-connection",
+   :line 183,
+   :var-type "macro",
+   :arglists ([opts & body]),
    :doc
    "Execute body with a JMX connection created based on opts. opts can include [default]:\n\n:host        The host to connect to [localhost]\n:port        The port to connect to [3000]\n:jndi-path   The jndi-path to use [jmxuri]\n:url         The full url (as a String) to use instead of generating a rmi url from\n             the above options [nil]\n:environment A map representing the environment used for the connection.\n             See JMXConnectorFactory/connect for details [{}]",
-   :var-type "macro",
-   :line 183,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:arglists ([n attr value]),
-   :name "write!",
    :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/with-connection"}
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "write!",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L234",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/write!",
-   :doc "Write an attribute value.",
-   :var-type "function",
    :line 234,
-   :file "src/main/clojure/clojure/java/jmx.clj"}
-  {:file nil,
-   :raw-source-url nil,
-   :source-url nil,
+   :var-type "function",
+   :arglists ([n attr value]),
+   :doc "Write an attribute value.",
+   :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/write!"}
+  {:name "Bean",
+   :var-type "type",
+   :namespace "clojure.java.jmx",
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/Bean",
+   :source-url nil,
+   :raw-source-url nil,
+   :file nil}
+  {:name "Destract",
+   :doc nil,
+   :var-type "protocol",
+   :line 125,
    :namespace "clojure.java.jmx",
-   :var-type "type",
-   :name "Bean"}
-  {:file "src/main/clojure/clojure/java/jmx.clj",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :source-url
-   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L125",
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/Destract",
-   :namespace "clojure.java.jmx",
-   :line 125,
-   :var-type "protocol",
-   :doc nil,
-   :name "Destract"}
-  {:file nil,
-   :raw-source-url nil,
-   :source-url nil,
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/objects->data",
-   :namespace "clojure.java.jmx",
-   :var-type "function",
-   :arglists ([_]),
+   :source-url
+   "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L125",
+   :raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :file "src/main/clojure/clojure/java/jmx.clj"}
+  {:name "objects->data",
    :doc
    "Convert JMX object model into data. Handles CompositeData, TabularData, maps, and atoms.",
-   :name "objects->data"})}
+   :arglists ([_]),
+   :var-type "function",
+   :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/objects->data",
+   :source-url nil,
+   :raw-source-url nil,
+   :file nil})}
