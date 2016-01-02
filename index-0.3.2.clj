@@ -116,18 +116,19 @@
    :namespace "clojure.java.jmx",
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/operation-names"}
-  {:name "read",
-   :doc "Read one or more mbean properties.",
-   :var-type "var",
-   :line 219,
-   :namespace "clojure.java.jmx",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/read",
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "read",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L219",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :file "src/main/clojure/clojure/java/jmx.clj"}
+   :line 219,
+   :var-type "var",
+   :arglists nil,
+   :doc "Read one or more mbean properties.",
+   :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/read"}
   {:raw-source-url
    "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
    :name "readable?",
@@ -198,29 +199,31 @@
   {:name "Bean",
    :var-type "type",
    :namespace "clojure.java.jmx",
+   :arglists nil,
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/Bean",
    :source-url nil,
    :raw-source-url nil,
    :file nil}
-  {:name "Destract",
-   :doc nil,
-   :var-type "protocol",
-   :line 125,
-   :namespace "clojure.java.jmx",
-   :wiki-url
-   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/Destract",
+  {:raw-source-url
+   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
+   :name "Destract",
+   :file "src/main/clojure/clojure/java/jmx.clj",
    :source-url
    "https://github.com/clojure/java.jmx/blob/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj#L125",
-   :raw-source-url
-   "https://github.com/clojure/java.jmx/raw/dd75ce27dbc0edb3091dc71feea7ac1db3784717/src/main/clojure/clojure/java/jmx.clj",
-   :file "src/main/clojure/clojure/java/jmx.clj"}
+   :line 125,
+   :var-type "protocol",
+   :arglists nil,
+   :doc nil,
+   :namespace "clojure.java.jmx",
+   :wiki-url
+   "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/Destract"}
   {:name "objects->data",
    :doc
    "Convert JMX object model into data. Handles CompositeData, TabularData, maps, and atoms.",
-   :arglists ([_]),
    :var-type "function",
    :namespace "clojure.java.jmx",
+   :arglists ([_]),
    :wiki-url
    "http://clojure.github.com/java.jmx//clojure.java.jmx-api.html#clojure.java.jmx/objects->data",
    :source-url nil,
