@@ -85,7 +85,7 @@
 (def ^{:dynamic true
        :doc "The connection to be used for JMX ops. Defaults to the local process."
        :skip-wiki true
-       :tag MBeanServer}
+       :tag MBeanServerConnection}
   *connection*
   (ManagementFactory/getPlatformMBeanServer))
 
@@ -277,7 +277,7 @@
 (defn register-mbean
   "Register an mbean with the current *connection*."
   [mbean mbean-name]
-  (.registerMBean *connection* mbean (as-object-name mbean-name)))
+  (.registerMBean ^MBeanServer *connection* mbean (as-object-name mbean-name)))
 
 (defn unregister-mbean
   "Unregister mbean named mbean-name with the current *connection*."
