@@ -75,13 +75,17 @@
   (:use [clojure.walk :only [postwalk]])
   (:import [clojure.lang Associative]
            java.lang.management.ManagementFactory
-           [javax.management Attribute AttributeList DynamicMBean MBeanInfo
-            ObjectName RuntimeMBeanException MBeanAttributeInfo MBeanServerConnection]
+           [javax.management Attribute AttributeList DynamicMBean MBeanInfo MBeanServer
+            ObjectName RuntimeMBeanException MBeanAttributeInfo MBeanOperationInfo
+            MBeanParameterInfo MBeanServerConnection]
            [javax.management.remote JMXConnectorFactory JMXServiceURL]))
+
+(set! *warn-on-reflection* true)
 
 (def ^{:dynamic true
        :doc "The connection to be used for JMX ops. Defaults to the local process."
-       :skip-wiki true}
+       :skip-wiki true
+       :tag MBeanServer}
   *connection*
   (ManagementFactory/getPlatformMBeanServer))
 
@@ -200,7 +204,8 @@
        (binding [*connection* (.getMBeanServerConnection connector#)]
          ~@body))))
 
-(defn ^{:skip-wiki true} mbean-info [n]
+(defn ^{:skip-wiki true} mbean-info
+  ^MBeanInfo [n]
   (.getMBeanInfo *connection* (as-object-name n)))
 
 (defn ^{:skip-wiki true} raw-read
@@ -210,7 +215,7 @@
   [n attrs]
   (if (sequential? attrs)
     (into {}
-          (map (fn [attr] [(keyword (.getName attr)) (.getValue attr)])
+          (map (fn [^Attribute attr] [(keyword (.getName attr)) (.getValue attr)])
                (.getAttributes *connection*
                                (as-object-name n)
                                (into-array (map name attrs)))))
@@ -241,9 +246,9 @@
 
 (defn ^{:skip-wiki true} attribute-info
   "Get the MBeanAttributeInfo for an attribute."
-  [object-name attr-name]
+  ^MBeanAttributeInfo [object-name attr-name]
   (first
-    (filter #(= (name attr-name) (.getName %))
+    (filter #(= (name attr-name) (.getName ^MBeanAttributeInfo %))
             (.getAttributes (mbean-info object-name)))))
 
 (defn readable?
@@ -258,14 +263,16 @@
 
 (defn- operation
   "The MBeanOperationInfo for operation op on mbean n. Used by invoke."
-  [n op]
-  (first  (filter #(= (-> % .getName keyword) op) (operations n))))
+  ^MBeanOperationInfo [n op]
+  (first  (filter (fn [^MBeanOperationInfo info]
+                    (= (-> info .getName keyword) op)) (operations n))))
 
 (defn- op-param-types
   "The parameter types (as class name strings) for operation op on n.
    Used for invoke."
   [n op]
-  (map #(-> % .getType) (.getSignature (operation n op))))
+  (map #(.getType ^MBeanParameterInfo %)
+       (.getSignature (operation n op))))
 
 (defn register-mbean
   "Register an mbean with the current *connection*."
@@ -285,13 +292,15 @@
 (defn attribute-names
   "All attribute names available on an MBean."
   [n]
-  (doall (map #(-> % .getName keyword)
+  (doall (map (fn [^MBeanAttributeInfo info]
+                (-> info .getName keyword))
               (.getAttributes (mbean-info n)))))
 
 (defn operation-names
   "All operation names available on an MBean."
   [n]
-  (doall (map #(-> % .getName keyword) (operations n))))
+  (doall (map (fn [^MBeanOperationInfo info]
+                (-> info .getName keyword)) (operations n))))
 
 (defn invoke-signature
   "Invoke an operation an an MBean. You must also supply
@@ -355,7 +364,7 @@
                     (ref-set state-ref
                              (merge @state-ref state-update))))))
   (setAttributes [_ attrs]
-      (let [attr-names (map (fn [attr]
+      (let [attr-names (map (fn [^Attribute attr]
                                 (.setAttribute _ attr)
                                 (.getName attr))
                             attrs)]
