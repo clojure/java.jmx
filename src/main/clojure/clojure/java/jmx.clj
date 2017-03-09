@@ -95,8 +95,8 @@
   "Build a JMX URL from options."
   ([] (jmx-url {}))
   ([overrides]
-     (let [opts (merge {:host "localhost", :port "3000", :jndi-path "jmxrmi"} overrides)]
-       (format "service:jmx:rmi:///jndi/rmi://%s:%s/%s" (opts :host) (opts :port) (opts :jndi-path)))))
+     (let [opts (merge {:protocol "rmi:///jndi/rmi", :host "localhost", :port "3000", :jndi-path "jmxrmi"} overrides)]
+       (format "service:jmx:%s://%s:%s/%s" (opts :protocol) (opts :host) (opts :port) (opts :jndi-path)))))
 
 (defprotocol CoercionImpl
   (as-object-name [_]))
@@ -187,6 +187,7 @@
 (defmacro with-connection
   "Execute body with a JMX connection created based on opts. opts can include [default]:
 
+     :protocol    The protocol to use [rmi:///jndi/rmi]
      :host        The host to connect to [localhost]
      :port        The port to connect to [3000]
      :jndi-path   The jndi-path to use [jmxuri]
