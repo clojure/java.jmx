@@ -212,16 +212,12 @@
          ["r" "d"] (map (memfn getName) (seq atts))
          [5 4] (map (memfn getValue) (seq atts)))))
 
-(def primitive-int? (< (.compareTo (clojure-version) "1.3.0") 0))
-
 (deftest test-guess-attribute-typename
   (are [x y] (= x (@#'jmx/guess-attribute-typename y))
        "boolean" false
        "java.lang.String" "foo"
        "long" (Long/valueOf (long 10)))
-  (if primitive-int?
-    (is (= "int" (@#'jmx/guess-attribute-typename 10)))
-    (is (= "long" (@#'jmx/guess-attribute-typename 10)))))
+  (is (= "long" (@#'jmx/guess-attribute-typename 10))))
 
 (deftest test-unregister-mbean
   (let [mbean (jmx/create-bean (ref {:a-property 123}))
