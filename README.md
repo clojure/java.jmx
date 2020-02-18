@@ -6,7 +6,9 @@ Produce and consume JMX beans from Clojure.
 Releases and Dependency Information
 ========================================
 
-Latest stable release: 0.3.4
+This project follows the version scheme MAJOR.MINOR.PATCH where each component provides some relative indication of the size of the change, but does not follow semantic versioning. In general, all changes endeavor to be non-breaking (by moving to new names rather than by breaking existing names).
+
+Latest stable release: 1.0.0
 
 * [All Released Versions](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.clojure%22%20AND%20a%3A%22java.jmx%22)
 
@@ -14,14 +16,14 @@ Latest stable release: 0.3.4
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/java.jmx "0.3.4"]
+    [org.clojure/java.jmx "1.0.0"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>java.jmx</artifactId>
-      <version>0.3.4</version>
+      <version>1.0.0</version>
     </dependency>
 
 Usage
@@ -102,12 +104,9 @@ Developer Information
 ========================================
 
 * [GitHub project](https://github.com/clojure/java.jmx)
-
-* [Bug Tracker](http://dev.clojure.org/jira/browse/JMX)
-
-* [Continuous Integration](http://build.clojure.org/job/java.jmx/)
-
-* [Compatibility Test Matrix](http://build.clojure.org/job/java.jmx-test-matrix/)
+* [Bug Tracker](https://clojure.atlassian.net/browse/JMX)
+* [Continuous Integration](https://build.clojure.org/job/java.jmx/)
+* [Compatibility Test Matrix](https://build.clojure.org/job/java.jmx-test-matrix/)
 
 Building
 ====================
@@ -120,6 +119,6 @@ of Clojure.
 
 ## License
 
-Copyright © Stuart Halloway
+Copyright © Stuart Halloway, Rich Hickey & contributors.
 
 Licensed under the EPL. (See the file epl.html.)
