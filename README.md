@@ -14,6 +14,11 @@ Latest stable release: 1.0.0
 
 * [Development Snapshot Versions](https://oss.sonatype.org/index.html#nexus-search;gav%7Eorg.clojure%7Ejava.jmx%7E%7E%7E)
 
+[CLI/`deps.edn`](https://clojure.org/reference/deps_and_cli) dependency information:
+```clojure
+org.clojure/java.jmx {:mvn/version "1.0.0"}
+```
+
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
     [org.clojure/java.jmx "1.0.0"]
