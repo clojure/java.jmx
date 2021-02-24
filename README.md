@@ -34,7 +34,7 @@ org.clojure/java.jmx {:mvn/version "1.0.0"}
 Usage
 ========================================
 
-[Full Documentation](http://clojure.github.com/java.jmx/)
+[Full Documentation](https://clojure.github.io/java.jmx/)
 
 ```clojure
 (require '[clojure.java.jmx :as jmx])
