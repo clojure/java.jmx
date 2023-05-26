@@ -110,8 +110,7 @@ Developer Information
 
 * [GitHub project](https://github.com/clojure/java.jmx)
 * [Bug Tracker](https://clojure.atlassian.net/browse/JMX)
-* [Continuous Integration](https://build.clojure.org/job/java.jmx/)
-* [Compatibility Test Matrix](https://build.clojure.org/job/java.jmx-test-matrix/)
+* [Continuous Integration](https://github.com/clojure/java.jmx/actions/workflows/test.yml)
 
 Building
 ====================
