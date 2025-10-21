@@ -3,6 +3,7 @@
   <artifactId>java.jmx</artifactId>
   <version>1.1.1-SNAPSHOT</version>
   <name>java.jmx</name>
+  <description>Produce and consume JMX beans from Clojure.</description>
 
   <parent>
     <groupId>org.clojure</groupId>
