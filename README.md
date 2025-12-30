@@ -8,7 +8,7 @@ Releases and Dependency Information
 
 This project follows the version scheme MAJOR.MINOR.PATCH where each component provides some relative indication of the size of the change, but does not follow semantic versioning. In general, all changes endeavor to be non-breaking (by moving to new names rather than by breaking existing names).
 
-Latest stable release: 1.1.0
+Latest stable release: 1.1.1
 
 * [All Released Versions](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.clojure%22%20AND%20a%3A%22java.jmx%22)
 
@@ -16,19 +16,19 @@ Latest stable release: 1.1.0
 
 [CLI/`deps.edn`](https://clojure.org/reference/deps_edn) dependency information:
 ```clojure
-org.clojure/java.jmx {:mvn/version "1.1.0"}
+org.clojure/java.jmx {:mvn/version "1.1.1"}
 ```
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/java.jmx "1.1.0"]
+    [org.clojure/java.jmx "1.1.1"]
 
 [Maven](https://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>java.jmx</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.1</version>
     </dependency>
 
 Usage
